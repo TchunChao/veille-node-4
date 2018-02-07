@@ -3,9 +3,11 @@ const app = express();
 const http = require("http"); 
 
 app.use(express.static('public'));
+app.use(express.static(__dirname + "/public"));
 
 const transforme_en_tableau = (collection)=>{
-	let html = "<h1>Membres</h1>";
+	let html = "<head><link rel='stylesheet' type='text/css' href='/css/style.css'></head>";
+	html += "<h1>Membres</h1><table>";
 	let id = 0;
 
 	for (elm of collection) {
