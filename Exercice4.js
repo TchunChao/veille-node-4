@@ -5,13 +5,16 @@ const http = require("http");
 app.use(express.static('public'));
 
 const transforme_en_tableau = (collection)=>{
-	let html = "<table>";
+	let html = "<h1>Membres</h1>";
+	let id = 0;
 
 	for (elm of collection) {
+		id+=1;
 		for(p in elm) {
-			html += "<tr><td>" + p + "</td><td>" + elm[p] + "</td></tr>";
+			html += "<tr><th>" + p + "</th><td>" + elm[p] + "</td></tr>";
 		}
 	}
+	html += "<tr><th>id</th><td>" + id + "</td></tr>";
 	html += "</table>";
 	return html;
 }
@@ -49,7 +52,6 @@ console.log(reponse);
 
 ////////////////////////////////////// Route /membres
 app.get('/membres', (req, res) => {
-	let html = "<h1>Membres</h1><table>";
 	const fs = require("fs");
 	fs.readFile( __dirname + "/public/data/" + "membres.txt", 'utf8', function (err, data) {
 		if (err) throw err;
