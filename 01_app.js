@@ -1,8 +1,10 @@
 const express = require('express');
 const app = express();
+let compteur=0;
+console.log("initialise compteur: " + compteur);
 
 app.get('/', (req, res) => {
-	console.log("Actualisé")
+	console.log("Incrémente compteur dans route = " + compteur++)
    	res.send('<h1>Ouin Express</h1>');
 })
 
