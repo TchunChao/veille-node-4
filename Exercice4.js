@@ -3,6 +3,20 @@ const app = express();
 const http = require("http"); 
 
 app.use(express.static('public'));
+
+const transforme_en_tableau = (collection)=>{
+	let html = "<table>";
+
+	for (elm of collection) {
+		for(p in elm) {
+			html += "<tr><td>" + p + "</td><td>" + elm[p] + "</td></tr>";
+		}
+	}
+	html += "</table>";
+	return html;
+}
+
+
 ////////////////////////////////////// Route /html/01_form.html
 app.get('/formulaire', (req, res) => {
  console.log(__dirname);
@@ -38,8 +52,9 @@ app.get('/membres', (req, res) => {
 	let html = "<h1>Membres</h1><table>";
 	const fs = require("fs");
 	fs.readFile( __dirname + "/public/data/" + "membres.txt", 'utf8', function (err, data) {
+		if (err) throw err;
 		console.log( data );
-		res.end( data );
+		res.end( transforme_en_tableau(JSON.parse('[' + data + ']')) );
 	});
 })
 
@@ -54,7 +69,7 @@ app.get('/traiter_membres', (req, res)=> {
 	 courriel:req.query.courriel
 	};
 
-	fs.appendFile('public/data/membres.txt', JSON.stringify(membre), function (err) {
+	fs.appendFile('public/data/membres.txt', ","+ JSON.stringify(membre), function (err) {
 	if (err) throw err;
 		console.log('Sauvegardé');
 	});
