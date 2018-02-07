@@ -20,7 +20,7 @@ app.get('/traiter_get', function (req, res) {
 console.log('la route /traiter_get')
 
 // on utilise l'objet req.query pour récupérer les données GET
- reponse = {
+ let reponse = {
  prenom:req.query.prenom,
  nom:req.query.nom
  };
